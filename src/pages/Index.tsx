@@ -1,12 +1,36 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useEffect } from "react";
+import { ParticleBackground } from "@/components/portfolio/ParticleBackground";
+import { Navigation } from "@/components/portfolio/Navigation";
+import { HeroSection } from "@/components/portfolio/HeroSection";
+import { AboutSection } from "@/components/portfolio/AboutSection";
+import { SkillsSection } from "@/components/portfolio/SkillsSection";
+import { ProjectsSection } from "@/components/portfolio/ProjectsSection";
+import { ExperienceSection } from "@/components/portfolio/ExperienceSection";
+import { ContactSection } from "@/components/portfolio/ContactSection";
+import { Footer } from "@/components/portfolio/Footer";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 
 const Index = () => {
+  useSmoothScroll();
+
+  useEffect(() => {
+    // Enable dark mode by default
+    document.documentElement.classList.add("dark");
+  }, []);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <ParticleBackground />
+      <Navigation />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ExperienceSection />
+        <ContactSection />
+      </main>
+      <Footer />
     </div>
   );
 };
