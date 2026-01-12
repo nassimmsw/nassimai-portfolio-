@@ -67,10 +67,10 @@ export const ContactSection = () => {
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
                     <a
-                      href="mailto:nassim@example.com"
+                      href="mailto:nassimmsw@gmail.com"
                       className="text-foreground hover:text-primary transition-colors"
                     >
-                      nassim@example.com
+                      nassimmsw@gmail.com
                     </a>
                   </div>
                 </div>
@@ -80,7 +80,7 @@ export const ContactSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Location</p>
-                    <p className="text-foreground">San Francisco, CA</p>
+                    <p className="text-foreground">Tizi Ouzou, Draa El Mizan</p>
                   </div>
                 </div>
               </div>
