@@ -5,40 +5,40 @@ import { ExternalLink, Github, X, ChevronRight } from "lucide-react";
 const projects = [
   {
     id: 1,
-    title: "Neural Code Assistant",
-    description: "An LLM-powered coding assistant trained on domain-specific codebases.",
-    longDescription: "Built a production-ready AI coding assistant using fine-tuned LLMs, featuring context-aware code completion, intelligent refactoring suggestions, and natural language to code translation. Deployed with real-time inference and 99.9% uptime.",
-    tags: ["LLM", "Python", "FastAPI", "RAG"],
+    title: "Number Guessing Game",
+    description: "A simple Python game where the computer picks a random number.",
+    longDescription: "My first real Python project! Built a command-line game where players try to guess a random number. Added features like difficulty levels, hint system, and score tracking. Great for learning loops and conditionals.",
+    tags: ["Python", "Beginner", "CLI", "Games"],
     image: "from-primary/20 via-secondary/10 to-accent/20",
     github: "#",
     demo: "#",
   },
   {
     id: 2,
-    title: "Real-time Anomaly Detection",
-    description: "ML pipeline for detecting anomalies in streaming financial data.",
-    longDescription: "Designed and implemented a real-time anomaly detection system processing 100K+ events per second. Used ensemble methods combining autoencoders, isolation forests, and LSTM networks for multi-modal anomaly detection.",
-    tags: ["PyTorch", "Kafka", "Kubernetes", "MLflow"],
+    title: "Simple Calculator",
+    description: "A basic calculator with a graphical interface using Tkinter.",
+    longDescription: "Built a calculator app with buttons for basic operations. Learned about GUI programming with Tkinter, event handling, and how to structure a simple application. Can perform addition, subtraction, multiplication, and division.",
+    tags: ["Python", "Tkinter", "GUI", "Math"],
     image: "from-secondary/20 via-accent/10 to-primary/20",
     github: "#",
     demo: "#",
   },
   {
     id: 3,
-    title: "Multimodal Search Engine",
-    description: "Search across text, images, and audio using unified embeddings.",
-    longDescription: "Created a multimodal search engine that enables semantic search across diverse content types. Implemented custom embedding models and vector similarity search with sub-100ms latency at scale.",
-    tags: ["CLIP", "Pinecone", "React", "AWS"],
+    title: "Personal Portfolio",
+    description: "This website! Built to showcase my learning journey.",
+    longDescription: "Designed and built this portfolio website to practice web development and showcase my projects. Learning about React, CSS, and how to create modern web interfaces. A work in progress as I continue to learn!",
+    tags: ["React", "CSS", "HTML", "Web Dev"],
     image: "from-accent/20 via-primary/10 to-secondary/20",
     github: "#",
     demo: "#",
   },
   {
     id: 4,
-    title: "AutoML Platform",
-    description: "End-to-end automated machine learning pipeline with explainability.",
-    longDescription: "Developed an AutoML platform that automates feature engineering, model selection, and hyperparameter tuning. Includes built-in explainability features with SHAP values and comprehensive model monitoring.",
-    tags: ["Python", "Ray", "Docker", "Streamlit"],
+    title: "Weather App (In Progress)",
+    description: "Learning to fetch data from APIs and display weather info.",
+    longDescription: "Currently working on a weather application that fetches real-time data from a weather API. This project is helping me understand how to work with APIs, handle JSON data, and display information dynamically.",
+    tags: ["Python", "APIs", "Learning", "In Progress"],
     image: "from-primary/30 via-accent/10 to-secondary/20",
     github: "#",
     demo: "#",
@@ -66,7 +66,7 @@ export const ProjectsSection = () => {
             Selected <span className="text-gradient">Projects</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A showcase of AI systems I've designed, built, and deployed
+            Small projects I've built while learning to code
           </p>
         </motion.div>
 
