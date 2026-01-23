@@ -4,32 +4,32 @@ import { Briefcase, Calendar } from "lucide-react";
 
 const experiences = [
   {
-    title: "Senior AI Engineer",
-    company: "TechCorp AI",
-    period: "2022 - Present",
-    description: "Leading the development of LLM-powered products, managing ML infrastructure, and mentoring junior engineers. Reduced inference costs by 60% through model optimization.",
-    technologies: ["LLMs", "MLOps", "Python", "Kubernetes"],
+    title: "High School Student",
+    company: "Lycée - Tizi Ouzou",
+    period: "2024 - Present",
+    description: "Currently studying sciences with a focus on mathematics and physics. Participating in coding clubs and self-learning AI concepts through online courses.",
+    technologies: ["Math", "Physics", "Self-learning", "Curiosity"],
   },
   {
-    title: "Machine Learning Engineer",
-    company: "DataFlow Labs",
-    period: "2020 - 2022",
-    description: "Built and deployed ML models for real-time prediction systems. Designed data pipelines processing 10M+ events daily with 99.99% reliability.",
-    technologies: ["PyTorch", "Spark", "AWS", "Airflow"],
+    title: "Self-Taught Programmer",
+    company: "Online Learning",
+    period: "2023 - Present",
+    description: "Learning Python through YouTube tutorials, Coursera, and freeCodeCamp. Completed beginner courses in programming fundamentals and started exploring machine learning.",
+    technologies: ["Python", "Coursera", "YouTube", "freeCodeCamp"],
   },
   {
-    title: "Data Scientist",
-    company: "Analytics Inc",
-    period: "2018 - 2020",
-    description: "Developed predictive models for customer behavior analysis. Implemented A/B testing frameworks and contributed to 30% increase in conversion rates.",
-    technologies: ["Scikit-learn", "SQL", "Python", "Tableau"],
+    title: "First Coding Project",
+    company: "Personal Project",
+    period: "2023",
+    description: "Built my first Python project - a simple calculator and a number guessing game. This sparked my passion for programming and problem-solving.",
+    technologies: ["Python", "Logic", "Problem Solving"],
   },
   {
-    title: "AI Research Intern",
-    company: "University Research Lab",
-    period: "2017 - 2018",
-    description: "Published research on neural network compression techniques. Achieved 4x speedup with minimal accuracy loss on edge devices.",
-    technologies: ["TensorFlow", "CUDA", "Research", "Publications"],
+    title: "Discovered AI Interest",
+    company: "Exploration",
+    period: "2022",
+    description: "Started learning about artificial intelligence through articles and videos. Fascinated by how AI works and decided to pursue it as a future career.",
+    technologies: ["Research", "Curiosity", "Dreams"],
   },
 ];
 
@@ -51,13 +51,13 @@ export const ExperienceSection = () => {
           className="text-center mb-16"
         >
           <span className="text-primary font-mono text-sm mb-4 block">
-            // Career Journey
+            // My Journey
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Work <span className="text-gradient">Experience</span>
+            Learning <span className="text-gradient">Timeline</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Building intelligent systems across industries and scales
+            My path to becoming an AI enthusiast
           </p>
         </motion.div>
 

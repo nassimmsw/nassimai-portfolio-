@@ -38,8 +38,8 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
           >
-            AI Engineer crafting intelligent systems that bridge the gap between
-            cutting-edge research and real-world applications.
+            17-year-old student passionate about AI and technology.
+            Learning, building, and dreaming big.
           </motion.p>
 
           <motion.div

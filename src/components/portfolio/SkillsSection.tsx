@@ -3,43 +3,39 @@ import { useRef } from "react";
 
 const skillCategories = [
   {
-    title: "AI & Machine Learning",
+    title: "Programming",
     skills: [
-      { name: "PyTorch", level: 95 },
-      { name: "TensorFlow", level: 90 },
-      { name: "Transformers", level: 92 },
-      { name: "LangChain", level: 88 },
-      { name: "OpenAI API", level: 94 },
+      { name: "Python", level: 65 },
+      { name: "JavaScript", level: 50 },
+      { name: "HTML/CSS", level: 70 },
+      { name: "C++", level: 40 },
     ],
   },
   {
-    title: "Data & ML Engineering",
+    title: "AI & Data",
     skills: [
-      { name: "Python", level: 98 },
-      { name: "SQL", level: 90 },
-      { name: "Pandas/NumPy", level: 95 },
-      { name: "Spark", level: 82 },
-      { name: "Airflow", level: 85 },
+      { name: "NumPy/Pandas", level: 45 },
+      { name: "Scikit-learn", level: 35 },
+      { name: "Jupyter", level: 60 },
+      { name: "Data Analysis", level: 40 },
     ],
   },
   {
-    title: "MLOps & Cloud",
+    title: "Tools",
     skills: [
-      { name: "Docker", level: 92 },
-      { name: "Kubernetes", level: 85 },
-      { name: "AWS/GCP", level: 88 },
-      { name: "MLflow", level: 90 },
-      { name: "CI/CD", level: 87 },
+      { name: "Git/GitHub", level: 55 },
+      { name: "VS Code", level: 75 },
+      { name: "Linux Basics", level: 40 },
+      { name: "Google Colab", level: 65 },
     ],
   },
   {
-    title: "Tools & Frameworks",
+    title: "Currently Learning",
     skills: [
-      { name: "FastAPI", level: 93 },
-      { name: "Ray", level: 80 },
-      { name: "Weights & Biases", level: 88 },
-      { name: "Git", level: 95 },
-      { name: "Linux", level: 90 },
+      { name: "Machine Learning", level: 30 },
+      { name: "Neural Networks", level: 25 },
+      { name: "TensorFlow", level: 20 },
+      { name: "APIs", level: 35 },
     ],
   },
 ];

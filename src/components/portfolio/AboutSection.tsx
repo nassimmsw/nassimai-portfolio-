@@ -8,10 +8,10 @@ export const AboutSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const highlights = [
-    { icon: Brain, label: "Deep Learning", value: "Expert" },
-    { icon: Cpu, label: "MLOps", value: "Advanced" },
-    { icon: Sparkles, label: "LLMs & GenAI", value: "Specialist" },
-    { icon: Zap, label: "Production AI", value: "5+ Years" },
+    { icon: Brain, label: "Machine Learning", value: "Learning" },
+    { icon: Cpu, label: "Python", value: "Intermediate" },
+    { icon: Sparkles, label: "AI Projects", value: "Enthusiast" },
+    { icon: Zap, label: "Coding", value: "2+ Years" },
   ];
 
   return (
@@ -78,19 +78,18 @@ export const AboutSection = () => {
               // About Me
             </span>
             <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
-              Transforming Ideas Into{" "}
-              <span className="text-gradient">Intelligent Solutions</span>
+              Passionate About{" "}
+              <span className="text-gradient">AI & Technology</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-              I'm an AI Engineer passionate about building systems that make a
-              difference. With expertise spanning machine learning, deep learning,
-              and large language models, I specialize in taking AI from prototype
-              to production.
+              I'm a 17-year-old student fascinated by artificial intelligence and 
+              machine learning. Currently learning Python, exploring AI concepts, 
+              and building small projects to develop my skills.
             </p>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-              My approach combines rigorous research with practical engineering,
-              ensuring that every solution is not just technically sound but also
-              scalable, maintainable, and impactful.
+              I love experimenting with new technologies and dream of becoming 
+              an AI engineer. Every day I'm learning something new and working 
+              on personal projects to grow my knowledge.
             </p>
 
             {/* Highlight Grid */}
