@@ -4,6 +4,13 @@ import { Briefcase, Calendar } from "lucide-react";
 
 const experiences = [
   {
+    title: "AI Developer",
+    company: "RSN Dev - Development Agency",
+    period: "2025 - Present",
+    description: "Collaborating with RSN Dev, a professional development agency. Working on AI-powered projects and solutions. Check out their portfolio at rsndev.netlify.app",
+    technologies: ["AI", "Collaboration", "Professional Work"],
+  },
+  {
     title: "High School Student",
     company: "Lycée - Tizi Ouzou",
     period: "2024 - Present",
