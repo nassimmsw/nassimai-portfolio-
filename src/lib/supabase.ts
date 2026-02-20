@@ -17,3 +17,23 @@ export interface Project {
   demo: string;
   created_at: string;
 }
+
+const ADMINCredentials = {
+  email: 'admin@portfolio.com',
+  password: 'Portfolio@2024!',
+};
+
+export const getAdminCredentials = () => {
+  const stored = localStorage.getItem('admin_credentials');
+  if (stored) {
+    return JSON.parse(stored);
+  }
+  return ADMINCredentials;
+};
+
+export const setAdminCredentials = (email: string, password: string) => {
+  localStorage.setItem('admin_credentials', JSON.stringify({ email, password }));
+};
+
+export const getAdminEmail = () => getAdminCredentials().email;
+export const getAdminPassword = () => getAdminCredentials().password;

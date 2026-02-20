@@ -7,8 +7,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, Edit, Plus, ExternalLink, Github } from "lucide-react";
+import { Trash2, Edit, Plus, ExternalLink, Github, ArrowLeft } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Link } from "react-router-dom";
 
 const ICON_OPTIONS = [
   "Layers", "Terminal", "Code2", "Sparkles", "ExternalLink", 
@@ -152,9 +153,15 @@ export default function AdminProjects() {
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold">Admin Panel</h1>
+            <h1 className="text-3xl font-bold">Projects</h1>
             <p className="text-muted-foreground">Manage your portfolio projects</p>
           </div>
+          <Link to="/admin">
+            <Button variant="outline">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Dashboard
+            </Button>
+          </Link>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button onClick={() => { resetForm(); setOpen(true); }}>
