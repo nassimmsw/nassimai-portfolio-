@@ -1,62 +1,81 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, X, ArrowUpRight, Code2, Layers, Sparkles, Terminal } from "lucide-react";
+import { ExternalLink, Github, X, ArrowUpRight, Code2, Layers, Sparkles, Terminal, Database, Server, Smartphone, Cloud } from "lucide-react";
+import { supabase, Project } from "@/lib/supabase";
 
-const projects = [
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Layers,
+  Terminal,
+  Code2,
+  Sparkles,
+  ExternalLink,
+  Github,
+  Database,
+  Server,
+  Smartphone,
+  Cloud,
+};
+
+const defaultProjects: Project[] = [
   {
     id: 1,
     title: "RSN Dev Portfolio",
     description: "Professional portfolio for RSN Dev development agency.",
-    longDescription: "Collaborated with RSN Dev, a professional development agency, to create their portfolio website. This showcases my ability to work with professional teams and deliver real-world projects.",
+    long_description: "Collaborated with RSN Dev, a professional development agency, to create their portfolio website. This showcases my ability to work with professional teams and deliver real-world projects.",
     tags: ["Professional", "Web Dev", "Collaboration"],
     color: "from-blue-500 via-indigo-500 to-violet-500",
-    icon: Layers,
+    icon: "Layers",
     github: "#",
     demo: "https://rsndev.netlify.app",
+    created_at: "",
   },
   {
     id: 2,
     title: "Number Guessing Game",
     description: "A simple Python game where the computer picks a random number.",
-    longDescription: "My first real Python project! Built a command-line game where players try to guess a random number. Added features like difficulty levels, hint system, and score tracking. Great for learning loops and conditionals.",
+    long_description: "My first real Python project! Built a command-line game where players try to guess a random number. Added features like difficulty levels, hint system, and score tracking. Great for learning loops and conditionals.",
     tags: ["Python", "Beginner", "CLI", "Games"],
     color: "from-emerald-400 via-teal-500 to-cyan-500",
-    icon: Terminal,
+    icon: "Terminal",
     github: "#",
     demo: "#",
+    created_at: "",
   },
   {
     id: 3,
     title: "Simple Calculator",
     description: "A basic calculator with a graphical interface using Tkinter.",
-    longDescription: "Built a calculator app with buttons for basic operations. Learned about GUI programming with Tkinter, event handling, and how to structure a simple application. Can perform addition, subtraction, multiplication, and division.",
+    long_description: "Built a calculator app with buttons for basic operations. Learned about GUI programming with Tkinter, event handling, and how to structure a simple application. Can perform addition, subtraction, multiplication, and division.",
     tags: ["Python", "Tkinter", "GUI", "Math"],
     color: "from-orange-400 via-amber-500 to-yellow-500",
-    icon: Code2,
+    icon: "Code2",
     github: "#",
     demo: "#",
+    created_at: "",
   },
   {
     id: 4,
     title: "Personal Portfolio",
     description: "This website! Built to showcase my learning journey.",
-    longDescription: "Designed and built this portfolio website to practice web development and showcase my projects. Learning about React, CSS, and how to create modern web interfaces. A work in progress as I continue to learn!",
+    long_description: "Designed and built this portfolio website to practice web development and showcase my projects. Learning about React, CSS, and how to create modern web interfaces. A work in progress as I continue to learn!",
     tags: ["React", "CSS", "HTML", "Web Dev"],
     color: "from-pink-400 via-rose-500 to-red-500",
-    icon: Sparkles,
+    icon: "Sparkles",
     github: "#",
     demo: "#",
+    created_at: "",
   },
   {
     id: 5,
     title: "Weather App",
     description: "Learning to fetch data from APIs and display weather info.",
-    longDescription: "Currently working on a weather application that fetches real-time data from a weather API. This project is helping me understand how to work with APIs, handle JSON data, and display information dynamically.",
+    long_description: "Currently working on a weather application that fetches real-time data from a weather API. This project is helping me understand how to work with APIs, handle JSON data, and display information dynamically.",
     tags: ["Python", "APIs", "Learning", "In Progress"],
     color: "from-sky-400 via-blue-500 to-indigo-500",
-    icon: ExternalLink,
+    icon: "ExternalLink",
     github: "#",
     demo: "#",
+    created_at: "",
   },
 ];
 
@@ -64,8 +83,29 @@ export const ProjectsSection = () => {
   const ref = useRef(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [projects, setProjects] = useState<Project[]>(defaultProjects);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (!error && data && data.length > 0) {
+      setProjects(data);
+    }
+    setLoading(false);
+  };
+
+  const displayProjects = loading ? defaultProjects : projects;
 
   return (
     <section id="projects" className="py-32 relative overflow-hidden">
@@ -102,8 +142,8 @@ export const ProjectsSection = () => {
 
         {/* Bento Grid Layout */}
         <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
-          {projects.map((project, index) => {
-            const Icon = project.icon;
+          {displayProjects.map((project, index) => {
+            const Icon = iconMap[project.icon] || Layers;
             const isLarge = index === 0 || index === 3;
             
             return (
@@ -165,12 +205,12 @@ export const ProjectsSection = () => {
                     
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
-                      {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                      {project.tags?.slice(0, 3).map((tag) => (
                         <motion.span
                           key={tag}
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.1 + tagIndex * 0.05 }}
+                          transition={{ delay: index * 0.1 + 0.05 }}
                           className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/70"
                         >
                           {tag}
@@ -246,7 +286,7 @@ export const ProjectsSection = () => {
                   <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${selectedProject.color} p-1`}>
                     <div className="w-full h-full rounded-3xl bg-background flex items-center justify-center">
                       {(() => {
-                        const Icon = selectedProject.icon;
+                        const Icon = iconMap[selectedProject.icon] || Layers;
                         return <Icon className="w-10 h-10 text-white" />;
                       })()}
                     </div>
@@ -256,7 +296,7 @@ export const ProjectsSection = () => {
                       {selectedProject.title}
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {selectedProject.tags.map((tag) => (
+                      {selectedProject.tags?.map((tag) => (
                         <span
                           key={tag}
                           className="px-3 py-1 rounded-full bg-white/10 text-sm font-mono text-white/80"
@@ -270,12 +310,12 @@ export const ProjectsSection = () => {
 
                 {/* Description */}
                 <p className="text-white/70 text-lg leading-relaxed mb-10">
-                  {selectedProject.longDescription}
+                  {selectedProject.long_description}
                 </p>
 
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-4">
-                  {selectedProject.demo !== "#" && (
+                  {selectedProject.demo !== "#" && selectedProject.demo !== "" && (
                     <motion.a
                       href={selectedProject.demo}
                       target="_blank"
@@ -288,17 +328,19 @@ export const ProjectsSection = () => {
                       <span>Live Demo</span>
                     </motion.a>
                   )}
-                  <motion.a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-colors"
-                  >
-                    <Github size={20} />
-                    <span>View Code</span>
-                  </motion.a>
+                  {selectedProject.github !== "#" && selectedProject.github !== "" && (
+                    <motion.a
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-colors"
+                    >
+                      <Github size={20} />
+                      <span>View Code</span>
+                    </motion.a>
+                  )}
                 </div>
               </div>
 
