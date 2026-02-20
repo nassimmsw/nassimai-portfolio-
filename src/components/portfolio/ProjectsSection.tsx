@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { ExternalLink, Github, X, ArrowUpRight, Code2, Layers, Sparkles, Terminal, Database, Server, Smartphone, Cloud } from "lucide-react";
+import { ExternalLink, Github, X, ArrowUpRight, Code2, Layers, Sparkles, Terminal, Database, Server, Smartphone, Cloud, FolderOpen, Eye } from "lucide-react";
 import { supabase, Project } from "@/lib/supabase";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -14,6 +14,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Server,
   Smartphone,
   Cloud,
+  FolderOpen,
 };
 
 const defaultProjects: Project[] = [
@@ -110,9 +111,10 @@ export const ProjectsSection = () => {
   return (
     <section id="projects" className="py-32 relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[120px]" />
+        <div className="absolute bottom-20 right-1/4 w-[400px] h-[400px] bg-secondary/8 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px]" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10" ref={ref}>
@@ -124,13 +126,13 @@ export const ProjectsSection = () => {
           className="text-center mb-20"
         >
           <motion.div
-            initial={{ scale: 0 }}
-            animate={isInView ? { scale: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6"
+            initial={{ scale: 0, rotate: -10 }}
+            animate={isInView ? { scale: 1, rotate: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2, type: "spring" }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/20 mb-6"
           >
             <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-primary font-mono text-sm">Featured Projects</span>
+            <span className="text-primary font-mono text-sm font-medium">Featured Projects</span>
           </motion.div>
           <h2 className="font-display text-4xl md:text-6xl font-bold mb-6">
             My <span className="text-gradient">Creations</span>
@@ -141,7 +143,7 @@ export const ProjectsSection = () => {
         </motion.div>
 
         {/* Bento Grid Layout */}
-        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[300px]">
+        <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-[280px]">
           {displayProjects.map((project, index) => {
             const Icon = iconMap[project.icon] || Layers;
             const isLarge = index === 0 || index === 3;
@@ -149,9 +151,9 @@ export const ProjectsSection = () => {
             return (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 50, rotateX: -10 }}
+                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1, type: "spring", bounce: 0.3 }}
                 onClick={() => setSelectedProject(project)}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -159,59 +161,77 @@ export const ProjectsSection = () => {
                   relative group cursor-pointer overflow-hidden rounded-3xl
                   ${isLarge ? 'md:col-span-2' : ''}
                   ${index === 0 ? 'lg:col-span-2' : ''}
+                  preserve-3d
                 `}
+                style={{ perspective: "1000px" }}
               >
-                {/* Card Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-10 group-hover:opacity-20 transition-opacity duration-500`} />
+                {/* Card Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-[0.08] group-hover:opacity-[0.15] transition-opacity duration-500`} />
                 
                 {/* Glass Container */}
-                <div className="absolute inset-0 glass-dark border border-white/10 group-hover:border-white/20 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/[0.08] to-transparent" />
+                <div className="absolute inset-0 border border-white/[0.08] group-hover:border-white/[0.15] transition-colors duration-300 rounded-3xl" />
+                <div className="absolute inset-0 shadow-2xl shadow-black/20 group-hover:shadow-primary/10 transition-shadow duration-500" />
+
+                {/* Animated Grid Pattern */}
+                <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-500"
+                  style={{
+                    backgroundImage: `linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)`,
+                    backgroundSize: '40px 40px'
+                  }}
+                />
 
                 {/* Content */}
-                <div className="relative h-full p-8 flex flex-col justify-between">
+                <div className="relative h-full p-7 flex flex-col justify-between">
                   {/* Top Section */}
                   <div className="flex items-start justify-between">
                     <motion.div
                       animate={{ 
                         rotate: hoveredIndex === index ? 12 : 0,
-                        scale: hoveredIndex === index ? 1.1 : 1
+                        scale: hoveredIndex === index ? 1.1 : 1,
+                        y: hoveredIndex === index ? -2 : 0
                       }}
-                      transition={{ duration: 0.3 }}
-                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${project.color} p-0.5`}
+                      transition={{ duration: 0.3, type: "spring" }}
+                      className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${project.color} p-0.5 shadow-lg shadow-black/20`}
                     >
-                      <div className="w-full h-full rounded-2xl bg-background/90 flex items-center justify-center">
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br opacity-50 blur-md" style={{ background: `linear-gradient(to bottom right, var(--tw-gradient-stops))` }} />
+                      <div className="relative w-full h-full rounded-2xl bg-background/95 backdrop-blur flex items-center justify-center">
                         <Icon className="w-6 h-6 text-white" />
                       </div>
                     </motion.div>
 
                     <motion.div
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: hoveredIndex === index ? 1 : 0, x: hoveredIndex === index ? 0 : 10 }}
-                      className="flex items-center gap-2 text-white/70"
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: hoveredIndex === index ? 1 : 0, scale: hoveredIndex === index ? 1 : 0.5 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm text-white/80 text-sm font-medium"
                     >
-                      <span className="text-sm font-medium">View</span>
-                      <ArrowUpRight className="w-4 h-4" />
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>View</span>
                     </motion.div>
                   </div>
 
                   {/* Bottom Section */}
                   <div>
-                    <h3 className="font-display text-2xl font-bold mb-2 text-white group-hover:text-gradient transition-all duration-300">
+                    <motion.h3 
+                      className="font-display text-2xl font-bold mb-2 text-white group-hover:text-gradient transition-all duration-300"
+                      animate={{ x: hoveredIndex === index ? 5 : 0 }}
+                    >
                       {project.title}
-                    </h3>
-                    <p className="text-white/60 text-sm mb-4 line-clamp-2">
+                    </motion.h3>
+                    <p className="text-white/50 text-sm mb-4 line-clamp-2 group-hover:text-white/60 transition-colors">
                       {project.description}
                     </p>
                     
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2">
-                      {project.tags?.slice(0, 3).map((tag) => (
+                      {project.tags?.slice(0, 3).map((tag, tagIndex) => (
                         <motion.span
                           key={tag}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.1 + 0.05 }}
-                          className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/70"
+                          initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 + tagIndex * 0.05 }}
+                          className="px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-xs font-mono text-white/50 group-hover:text-white/70 group-hover:bg-white/[0.08] transition-all duration-300"
                         >
                           {tag}
                         </motion.span>
@@ -222,8 +242,11 @@ export const ProjectsSection = () => {
 
                 {/* Hover Glow Effect */}
                 <div 
-                  className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-2xl`}
+                  className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500 blur-2xl pointer-events-none`}
                 />
+
+                {/* Corner Accent */}
+                <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-bl-full`} />
               </motion.div>
             );
           })}
@@ -241,12 +264,13 @@ export const ProjectsSection = () => {
             href="https://github.com"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass hover:bg-primary/10 border border-primary/20 transition-all duration-300"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/[0.1] hover:border-white/[0.2] transition-all duration-300 group"
           >
-            <Github className="w-5 h-5" />
+            <Github className="w-5 h-5 group-hover:text-primary transition-colors" />
             <span className="font-medium">View All on GitHub</span>
+            <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
           </motion.a>
         </motion.div>
       </div>
@@ -259,47 +283,50 @@ export const ProjectsSection = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xl"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 50 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 50 }}
+              initial={{ scale: 0.9, opacity: 0, y: 50, rotateX: -5 }}
+              animate={{ scale: 1, opacity: 1, y: 0, rotateX: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 50, rotateX: -5 }}
+              transition={{ type: "spring", bounce: 0.2 }}
               onClick={(e) => e.stopPropagation()}
               className="relative max-w-3xl w-full rounded-3xl overflow-hidden"
             >
               {/* Modal Background */}
               <div className={`absolute inset-0 bg-gradient-to-br ${selectedProject.color} opacity-20`} />
+              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.1] to-transparent" />
               <div className="absolute inset-0 glass-dark" />
               
               <div className="relative p-8 md:p-12">
                 {/* Close Button */}
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
+                  className="absolute top-6 right-6 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:rotate-90 duration-300"
                 >
                   <X size={20} className="text-white/70" />
                 </button>
 
                 {/* Icon & Title */}
                 <div className="flex items-start gap-6 mb-8">
-                  <div className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${selectedProject.color} p-1`}>
-                    <div className="w-full h-full rounded-3xl bg-background flex items-center justify-center">
+                  <div className={`relative w-20 h-20 rounded-3xl bg-gradient-to-br ${selectedProject.color} p-1 shadow-xl shadow-black/20`}>
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br opacity-50 blur-md" />
+                    <div className="relative w-full h-full rounded-3xl bg-background flex items-center justify-center">
                       {(() => {
                         const Icon = iconMap[selectedProject.icon] || Layers;
                         return <Icon className="w-10 h-10 text-white" />;
                       })()}
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-2">
+                  <div className="flex-1 pt-2">
+                    <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">
                       {selectedProject.title}
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedProject.tags?.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 rounded-full bg-white/10 text-sm font-mono text-white/80"
+                          className="px-3 py-1.5 rounded-full bg-white/[0.1] border border-white/[0.15] text-sm font-mono text-white/80"
                         >
                           {tag}
                         </span>
@@ -320,9 +347,9 @@ export const ProjectsSection = () => {
                       href={selectedProject.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r ${selectedProject.color} text-white font-semibold shadow-lg shadow-primary/25`}
+                      className={`flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r ${selectedProject.color} text-white font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all`}
                     >
                       <ExternalLink size={20} />
                       <span>Live Demo</span>
@@ -333,9 +360,9 @@ export const ProjectsSection = () => {
                       href={selectedProject.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ scale: 1.02 }}
+                      whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-colors"
+                      className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white font-semibold hover:bg-white/[0.12] hover:border-white/[0.25] transition-all"
                     >
                       <Github size={20} />
                       <span>View Code</span>
